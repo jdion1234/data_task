@@ -15,7 +15,7 @@ def text_cleaner(name):
     name = re.sub("\s\s", " ", name)
 
     #check if name has 3 words
-    three_words =   ((len(name.split())-1)==2)
+    three_words = ((len(name.split())-1)==2)
 
     # if name has 3 words, then if the 2nd word is an initial (with or without a period) remove it
     if (three_words):
