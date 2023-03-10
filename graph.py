@@ -38,8 +38,8 @@ for subg_set in nx.connected_components(g):
     if(nx.number_of_nodes(subg)==1):
         c = .1
     else:
-        # generate random number between ..6 and 1 so colors will not be similar to subgraphs with just 1 node
-        c = [((random.random()*.6)+.4)] * nx.number_of_nodes(subg)  # random color...
+        # generate random number between .6 and 1 so colors will not be similar to subgraphs with just 1 node
+        c = [((random.random()*.6)+.4)] * nx.number_of_nodes(subg)  # get random color from random number
     nx.draw(subg, pos, node_size=40, node_color=c, vmin=0.0, vmax=1.0, with_labels=False)
     
 plt.show()
