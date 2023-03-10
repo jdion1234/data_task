@@ -21,7 +21,6 @@ def text_cleaner(name):
     if (three_words):
         name = re.sub("\s[A-Za-z]\s", " ", name)
         name = re.sub("\s[A-Za-z]\.\s", " ", name)
-        # print("hi")
     
     return(name)
 
@@ -59,33 +58,24 @@ for business in business_data["rows"]:
         URL = "https://firststop.sos.nd.gov/api/FilingDetail/business/" + business + "/false"
         r = requests.get(url=URL, headers={"authorization":"undefined"})
         ownership_data=r.json()
-        test=1
+
         # check if the business is associated with an owner, registered agent, or commercial registered agent
         for dicts in ownership_data["DRAWER_DETAIL_LIST"]:
             
             if dicts["LABEL"] == "Commercial Registered Agent":
                 output[business_name]={"Name":[text_cleaner(dicts["VALUE"].partition('\n')[0])], "Type":"Commercial Registered Agent"}
                 print(str(row_number) + ". " + business_name)
-                test=0
             elif dicts["LABEL"] == "Owner Name":
                 output[business_name]={"Name":[text_cleaner(dicts["VALUE"].partition('\n')[0])], "Type":"Owner Name"}
                 print(str(row_number) + ". " + business_name)
-                test=0
             elif dicts["LABEL"] == "Registered Agent":
                 output[business_name]={"Name":[text_cleaner(dicts["VALUE"].partition('\n')[0])], "Type":"Registered Agent"}
                 print(str(row_number) + ". " + business_name)
-                test=0
             elif dicts["LABEL"] == "Owners":
                 name_array = [text_cleaner(dicts["VALUE"].partition('\n')[0]), text_cleaner(ownership_data["DRAWER_DETAIL_LIST"][3]["VALUE"].partition('\n')[0])]
                 output[business_name]={"Name":name_array, "Type":"Owners"}
-                print(str(row_number) + ". " + business_name)
-                test=0                
+                print(str(row_number) + ". " + business_name)              
         
-        if(test==1):
-            print(str(row_number) + ". --This one is different-- " + business_name)
-        test=1
-        #print businesses for visual reference for progress of the program
-        # print(str(row_number) + ". " + business_name)
         row_number+=1
 
 # write scraped data to json file
