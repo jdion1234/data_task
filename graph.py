@@ -40,7 +40,6 @@ for subg_set in nx.connected_components(g):
     else:
         # generate random number between ..6 and 1 so colors will not be similar to subgraphs with just 1 node
         c = [((random.random()*.6)+.4)] * nx.number_of_nodes(subg)  # random color...
-        print(c)
     nx.draw(subg, pos, node_size=40, node_color=c, vmin=0.0, vmax=1.0, with_labels=False)
     
 plt.show()
